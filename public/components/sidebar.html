@@ -1,0 +1,47 @@
+<!-- public/components/sidebar.html -->
+<aside class="app-sidebar" id="appSidebar">
+  <div class="brand-box">
+    <div class="brand-logo">N<span>✦</span></div>
+    <div class="brand-text"><b>NEXUS</b><small>ZALO DATA BRIDGE</small></div>
+  </div>
+
+  <div class="nav-category">ĐIỀU HƯỚNG</div>
+  <nav class="sidebar-nav">
+    <button class="nav-btn" data-view-target="overview">
+      <span class="icon">◈</span><span>Tổng quan</span>
+    </button>
+    <button class="nav-btn" data-view-target="devices">
+      <span class="icon">📱</span><span>Thiết bị ADB</span>
+    </button>
+  </nav>
+
+  <div class="nav-category">DỮ LIỆU &amp; TỆP</div>
+  <nav class="sidebar-nav">
+    <button class="nav-btn" data-view-target="backups">
+      <span class="icon">💾</span><span>Tạo sao lưu</span>
+    </button>
+    <button class="nav-btn" data-view-target="restore">
+      <span class="icon">🔄</span><span>Khôi phục</span>
+    </button>
+    <button class="nav-btn" data-view-target="explorer">
+      <span class="icon">📁</span><span>Kho tệp &amp; Lưu trữ</span>
+    </button>
+  </nav>
+
+  <div class="nav-category">HỆ THỐNG</div>
+  <nav class="sidebar-nav">
+    <button class="nav-btn" data-view-target="history">
+      <span class="icon">⏱</span><span>Lịch sử tác vụ</span>
+    </button>
+    <button class="nav-btn" data-view-target="settings">
+      <span class="icon">⚙</span><span>Cài đặt &amp; Bác sĩ</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="pill pill-cyan sidebar-footer-pill">LOCAL-FIRST · PRIVATE</div>
+    <small class="sidebar-version">Nexus-Zalo v2.0.0</small>
+  </div>
+</aside>
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>

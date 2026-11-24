@@ -1,0 +1,80 @@
+/* ============================================================
+   Nexus-Zalo v2.0 — CSS Layer: variables.css
+   Single Responsibility: Design tokens (colors, spacing, radii,
+   breakpoints, typography, layout dimensions).
+   ============================================================ */
+
+:root {
+  /* ── Color Palette (Dark Slate) ─────────────────────── */
+  --bg-dark:        #070c16;
+  --bg-card:        #0d1626;
+  --bg-card-hover:  #121f35;
+  --bg-input:       #08101c;
+  --line:           #1c2b42;
+  --line-light:     #2c4162;
+
+  --text-main:   #edf4ff;
+  --text-muted:  #8394ad;
+  --text-dim:    #546680;
+
+  /* ── Brand Accents ──────────────────────────────────── */
+  --accent-cyan:     #5ce6d4;
+  --accent-blue:     #5d88ff;
+  --accent-purple:   #9d72ff;
+  --accent-gradient: linear-gradient(135deg, #5ce6d4 0%, #5d88ff 100%);
+  --accent-glow:     rgba(92, 230, 212, 0.25);
+
+  /* ── Status Colors ──────────────────────────────────── */
+  --status-success:    #4ade80;
+  --status-success-bg: rgba(74,222,128,0.12);
+  --status-warn:       #fbbf24;
+  --status-warn-bg:    rgba(251,191,36,0.12);
+  --status-danger:     #f87171;
+  --status-danger-bg:  rgba(248,113,113,0.12);
+  --status-info:       #38bdf8;
+  --status-info-bg:    rgba(56,189,248,0.12);
+
+  /* ── Layout ─────────────────────────────────────────── */
+  --sidebar-width:      250px;
+  --header-height:      64px;
+  --bottom-nav-height:  60px;
+  --max-content-width:  1400px;
+
+  /* ── Breakpoints (reference only) ───────────────────── */
+  --bp-sm:  480px;
+  --bp-md:  768px;
+  --bp-lg:  1024px;
+  --bp-xl:  1280px;
+
+  /* ── Typography ─────────────────────────────────────── */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Radii & Motion ─────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+  --transition:  all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Theme: Midnight ──────────────────────────────────── */
+[data-theme="midnight"] {
+  --bg-dark:       #050814;
+  --bg-card:       #091024;
+  --bg-card-hover: #0e1938;
+  --line:          #17264a;
+  --accent-cyan:   #38bdf8;
+  --accent-blue:   #818cf8;
+}
+
+/* ── Theme: Cyberpunk ─────────────────────────────────── */
+[data-theme="cyberpunk"] {
+  --bg-dark:        #0a0512;
+  --bg-card:        #140b24;
+  --bg-card-hover:  #1e1136;
+  --line:           #301954;
+  --accent-cyan:    #00ffcc;
+  --accent-blue:    #ff007f;
+  --accent-gradient: linear-gradient(135deg, #00ffcc 0%, #ff007f 100%);
+}

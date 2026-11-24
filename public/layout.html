@@ -1,0 +1,317 @@
+<!-- public/layout.html — Khung chính SPA, chứa placeholders -->
+<div class="app-shell">
+  <!-- Sidebar placeholder -->
+  <div id="sidebar-container"></div>
+
+  <!-- Main area -->
+  <div class="app-main">
+    <!-- Header placeholder -->
+    <div id="header-container"></div>
+
+    <!-- Monitor widget (gắn vào đây bởi monitor.js) -->
+    <div id="monitor-widget-container"></div>
+
+    <!-- Toast container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Content pages wrapper -->
+    <div class="content-wrapper" id="view-container">
+
+      <!-- ========== PAGE: OVERVIEW ========== -->
+      <section class="page-view" id="view-overview">
+        <div class="overview-hero">
+          <h1>Dữ liệu Zalo của bạn.<br><span>Hoàn toàn trong tầm tay.</span></h1>
+          <p>Sao lưu dữ liệu Zalo Android đa thiết bị qua ADB, tự do chọn thư mục lưu trữ, nén tệp ZIP an toàn, và khôi phục nguyên vẹn kèm cơ chế bảo vệ rollback.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="Router.navigate('backups')">💾 Bắt đầu sao lưu ngay →</button>
+            <button class="btn btn-outline" onclick="Router.navigate('devices')">📱 Quét thiết bị ADB</button>
+            <button class="btn btn-outline" onclick="Router.navigate('explorer')">📁 Xem kho lưu trữ</button>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><small>THIẾT BỊ SẴN SÀNG</small><b id="statDeviceCount">—</b><span>ADB Online</span></div>
+          <div class="stat-card"><small>BẢN SAO LƯU ĐÃ LƯU</small><b id="statBackupCount">—</b><span>Trong kho lưu trữ</span></div>
+          <div class="stat-card"><small>DUNG LƯỢNG KHẢ DỤNG</small><b id="statFreeSpace">—</b><span>Ổ đĩa lưu trữ</span></div>
+          <div class="stat-card"><small>HOẠT ĐỘNG GẦN NHẤT</small><b id="statLastActivity" style="font-size:14px;line-height:1.4;">—</b><span>Nhật ký tác vụ</span></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>✦ Kiến trúc an toàn 4 bước</h3></div>
+          <div class="four-step-grid">
+            <div class="step-card"><b>01. Pull</b><small>Trích xuất thư mục com.zing.zalo an toàn qua ADB.</small></div>
+            <div class="step-card"><b>02. ZIP + SHA-256</b><small>Đóng gói chuẩn ZIP, tính mã băm bảo đảm toàn vẹn.</small></div>
+            <div class="step-card"><b>03. Lưu trữ linh hoạt</b><small>Tùy ý lưu tại /sdcard/Download hoặc thẻ nhớ ngoài.</small></div>
+            <div class="step-card"><b>04. Khôi phục + Rollback</b><small>Sao lưu tạm dữ liệu cũ trước khi push, phòng rủi ro.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: DEVICES ========== -->
+      <section class="page-view" id="view-devices">
+        <div class="view-header">
+          <div><h2>Thiết bị Android</h2><p>Quản lý thiết bị kết nối qua USB hoặc Wi-Fi Wireless Debugging.</p></div>
+          <button class="btn btn-outline" id="btnRefreshDevices">↻ Quét lại thiết bị</button>
+        </div>
+        <div class="two-column-workspace">
+          <div>
+            <div class="card-header"><h3>📱 Danh sách thiết bị kết nối</h3></div>
+            <div class="devices-grid" id="devicesListContainer"><div class="muted">Đang quét thiết bị...</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>📶 Ghép nối qua Wi-Fi</h3></div>
+            <p class="text-muted text-sm">Trên điện thoại: Cài đặt → Tùy chọn nhà phát triển → Gỡ lỗi không dây → Ghép nối bằng mã.</p>
+            <div class="form-group">
+              <label class="form-label">ĐỊA CHỈ IP</label>
+              <input type="text" class="form-control" id="inputPairIp" placeholder="192.168.1.35">
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">CỔNG GHÉP NỐI</label>
+                <input type="text" class="form-control" id="inputPairPort" placeholder="38491">
+              </div>
+              <div class="form-group">
+                <label class="form-label">MÃ 6 SỐ</label>
+                <input type="text" class="form-control" id="inputPairCode" placeholder="123456">
+              </div>
+            </div>
+            <button class="btn btn-outline btn-block" id="btnPairAdb">1. Ghép nối thiết bị</button>
+            <div class="divider"></div>
+            <label class="form-label">KẾT NỐI QUA CỔNG CHÍNH</label>
+            <div class="input-row">
+              <input type="text" class="form-control" id="inputConnectIp" placeholder="IP">
+              <input type="text" class="form-control" id="inputConnectPort" placeholder="Cổng">
+              <button class="btn btn-primary" id="btnConnectAdb">2. Kết nối</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: BACKUPS ========== -->
+      <section class="page-view" id="view-backups">
+        <div class="view-header">
+          <div><h2>Tạo bản sao lưu</h2><p>Trích xuất &amp; nén dữ liệu Zalo thành gói ZIP an toàn.</p></div>
+        </div>
+        <div class="card storage-info-card">
+          <div>
+            <span class="label-tiny">NƠI LƯU TRỮ HIỆN TẠI</span>
+            <b id="backupActiveDir" class="mono-path">—</b>
+          </div>
+          <div class="storage-actions">
+            <span class="pill pill-cyan" id="backupFreeSpace">— GB</span>
+            <button class="btn btn-outline btn-sm" onclick="Router.navigate('settings')">⚙ Đổi thư mục</button>
+          </div>
+        </div>
+        <div class="card form-card">
+          <div class="card-header"><h3>▣ Cấu hình sao lưu</h3></div>
+          <div class="form-group">
+            <label class="form-label">CHỌN THIẾT BỊ NGUỒN</label>
+            <div class="check-item-list" id="backupDevicesChecklist"><div class="muted">Đang tải thiết bị...</div></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">GHI CHÚ (TÙY CHỌN)</label>
+            <input type="text" class="form-control" id="backupNoteInput" placeholder="Ví dụ: Lưu trước khi nâng cấp ROM...">
+          </div>
+          <button class="btn btn-primary btn-block btn-lg" id="btnStartBackup">💾 Bắt đầu sao lưu ngay →</button>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: RESTORE ========== -->
+      <section class="page-view" id="view-restore">
+        <div class="view-header">
+          <div><h2>Khôi phục bản sao lưu</h2><p>Đẩy dữ liệu tới thiết bị có bảo vệ rollback.</p></div>
+        </div>
+        <div class="card form-card">
+          <div class="card-header"><h3>▣ Cấu hình khôi phục</h3></div>
+          <div class="form-group">
+            <label class="form-label">CHỌN BẢN SAO LƯU</label>
+            <select class="form-control" id="restoreBackupSelect"><option>Đang tải...</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">CHỌN THIẾT BỊ ĐÍCH</label>
+            <div class="check-item-list" id="restoreDevicesChecklist"><div class="muted">Đang tải...</div></div>
+          </div>
+          <div class="form-group warning-box">
+            <label class="confirm-label">
+              <input type="checkbox" id="restoreConfirmChk">
+              <span>Tôi xác nhận rằng dữ liệu Zalo hiện tại trên thiết bị đích sẽ bị ghi đè. Hệ thống sẽ tự sao lưu dữ liệu cũ (rollback) trước khi khôi phục.</span>
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block btn-lg" id="btnStartRestore">🔄 Thực hiện khôi phục →</button>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: EXPLORER ========== -->
+      <section class="page-view" id="view-explorer">
+        <div class="view-header">
+          <div><h2>Kho tệp &amp; Lưu trữ</h2><p>Duyệt, kiểm tra và quản lý các bản sao lưu.</p></div>
+          <button class="btn btn-outline" onclick="ExplorerView && ExplorerView.render()">↻ Làm mới</button>
+        </div>
+        <div class="search-bar-row">
+          <input type="text" class="form-control" id="archiveSearchInput" placeholder="🔍 Tìm kiếm bản sao lưu theo tên thiết bị, ghi chú...">
+        </div>
+        <div id="archivesListContainer" class="archive-list"></div>
+
+        <!-- Modal: Inspect Archive -->
+        <div class="modal-backdrop" id="inspectArchiveModal">
+          <div class="modal-box">
+            <div class="modal-header">
+              <h3 id="inspectModalTitle">Nội dung gói sao lưu</h3>
+              <button class="btn-close" id="btnCloseInspectModal">✕</button>
+            </div>
+            <div class="modal-subheader" id="inspectModalInfo"></div>
+            <div class="modal-body modal-scroll" id="inspectModalEntries"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: HISTORY ========== -->
+      <section class="page-view" id="view-history">
+        <div class="view-header">
+          <div><h2>Lịch sử tác vụ</h2><p>Xem, tìm kiếm và quản lý nhật ký hoạt động.</p></div>
+        </div>
+        <div class="history-toolbar">
+          <input type="text" class="form-control search-sm" id="historySearchInput" placeholder="🔍 Tìm kiếm...">
+          <select class="form-control select-sm" id="historyFilterType">
+            <option value="">Tất cả loại</option>
+            <option value="backup">Sao lưu</option>
+            <option value="restore">Khôi phục</option>
+          </select>
+          <div class="history-bulk-actions">
+            <button class="btn btn-outline btn-sm" id="btnHistorySelectAll">Chọn tất cả</button>
+            <button class="btn btn-danger btn-sm" id="btnHistoryBulkDelete" disabled>🗑 Xóa đã chọn</button>
+            <button class="btn btn-danger btn-sm" id="history-clear-all">🗑 Xóa toàn bộ</button>
+          </div>
+        </div>
+        <div id="history-list" class="history-list"></div>
+
+        <!-- Modal: History Log -->
+        <div class="modal-backdrop" id="historyLogModal">
+          <div class="modal-box modal-box-lg">
+            <div class="modal-header">
+              <h3 id="historyLogTitle">Nhật ký chi tiết</h3>
+              <button class="btn-close" id="btnCloseHistoryLog">✕</button>
+            </div>
+            <div class="modal-body modal-scroll">
+              <pre id="historyLogContent" class="log-content"></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PAGE: SETTINGS ========== -->
+      <section class="page-view" id="view-settings">
+        <div class="view-header">
+          <div><h2>Cài đặt &amp; Bác sĩ hệ thống</h2><p>Cấu hình thư mục, ADB, giao diện &amp; chẩn đoán.</p></div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Backup Directory -->
+          <div class="card settings-section">
+            <div class="card-header"><h3>📂 Thư mục lưu trữ</h3></div>
+            <div class="form-group">
+              <label class="form-label">ĐƯỜNG DẪN THƯ MỤC</label>
+              <input type="text" class="form-control" id="settingsDirInput" placeholder="/sdcard/Download/Nexus-Backups">
+            </div>
+            <div id="settingsStorageInfo" class="storage-info-text"></div>
+            <div id="settingsQuickPresets" class="preset-buttons"></div>
+            <button class="btn btn-primary btn-sm" id="btnSaveSettingsDir">💾 Lưu thư mục</button>
+          </div>
+
+          <!-- Theme -->
+          <div class="card settings-section">
+            <div class="card-header"><h3>🎨 Giao diện (Theme)</h3></div>
+            <div class="theme-selector">
+              <div class="theme-card active" data-theme="default">
+                <div class="theme-preview theme-preview-default"></div>
+                <span>Mặc định</span>
+              </div>
+              <div class="theme-card" data-theme="midnight">
+                <div class="theme-preview theme-preview-midnight"></div>
+                <span>Midnight</span>
+              </div>
+              <div class="theme-card" data-theme="cyberpunk">
+                <div class="theme-preview theme-preview-cyberpunk"></div>
+                <span>Cyberpunk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor -->
+          <div class="card settings-section settings-section-full">
+            <div class="card-header">
+              <h3>🔧 Bác sĩ hệ thống</h3>
+              <button class="btn btn-outline btn-sm" id="btnRunDoctor">↻ Chạy kiểm tra</button>
+            </div>
+            <div id="doctorResults"></div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /content-wrapper -->
+
+    <!-- Mobile bottom navigation -->
+    <nav class="mobile-nav-dock">
+      <button class="mobile-nav-item" data-view-target="overview"><span>◈</span><small>Tổng quan</small></button>
+      <button class="mobile-nav-item" data-view-target="devices"><span>📱</span><small>Thiết bị</small></button>
+      <button class="mobile-nav-item" data-view-target="backups"><span>💾</span><small>Sao lưu</small></button>
+      <button class="mobile-nav-item" data-view-target="restore"><span>🔄</span><small>Khôi phục</small></button>
+      <button class="mobile-nav-item" data-view-target="history"><span>⏱</span><small>Lịch sử</small></button>
+    </nav>
+
+  </div><!-- /app-main -->
+
+  <!-- ========== PAYMENT MODAL ========== -->
+  <div class="payment-modal-backdrop" id="paymentModalBackdrop">
+    <div class="payment-modal">
+      <div class="payment-modal-header">
+        <div>
+          <h3>💳 Thanh toán sao lưu</h3>
+          <small id="paymentTierBadge" class="payment-tier-badge"></small>
+        </div>
+        <button class="btn btn-outline btn-sm" id="btnClosePayment">✕ Hủy</button>
+      </div>
+      <div class="payment-modal-body">
+        <div style="text-align:center; margin-bottom:16px;">
+          <div class="payment-qr-wrap">
+            <div id="paymentQrSkeleton" class="payment-qr-skeleton"></div>
+            <img id="paymentQrImg" class="payment-qr-img" src="" alt="QR thanh toán" style="display:none;" />
+            <div id="paymentQrError" class="payment-qr-error">
+              <span>❌ Không tải được QR</span>
+              <button id="btnRetryQr" class="btn btn-outline btn-sm">🔄 Tải lại QR</button>
+            </div>
+          </div>
+        </div>
+        <div class="payment-info-row">
+          <span class="text-muted">Dung lượng Zalo</span>
+          <b id="paymentSizeGb">—</b>
+        </div>
+        <div class="payment-info-row">
+          <span class="text-muted">Số tiền cần thanh toán</span>
+          <b id="paymentAmount" class="payment-amount">—</b>
+        </div>
+        <div class="payment-info-row">
+          <span class="text-muted">Ngân hàng</span>
+          <b id="paymentBankName">—</b>
+        </div>
+        <div class="payment-info-row-copyable">
+          <span class="text-muted">Số tài khoản</span>
+          <b id="paymentAccountNo" class="mono-path">—</b>
+          <button id="btnCopyAccountNo" class="btn-copy-inline" title="Sao chép số tài khoản">📋</button>
+        </div>
+        <div class="payment-info-row">
+          <span class="text-muted">Chủ tài khoản</span>
+          <b id="paymentAccountName">—</b>
+        </div>
+        <div class="payment-info-row" style="background:var(--status-warn-bg); border-radius:var(--radius-sm); padding:8px 12px; margin-top:4px;">
+          <span class="text-muted">Nội dung chuyển khoản</span>
+          <b id="paymentOrderId" class="mono-path" style="color:var(--status-warn);">—</b>
+          <button id="btnCopyOrderId" class="btn-copy-inline" title="Sao chép nội dung CK">📋</button>
+        </div>
+        <div style="text-align:center; margin-top:12px;">
+          <div id="paymentStatusText" class="payment-status-pending">⏳ Đang chờ thanh toán...</div>
+          <div id="paymentCountdown" class="payment-countdown">Hết hạn sau: 15:00</div>
+        </div>
+        <div class="payment-footer">⚡ Chuyển khoản với <strong>đúng nội dung</strong> để hệ thống tự xác nhận</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /app-shell -->

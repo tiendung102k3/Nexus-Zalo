@@ -1,0 +1,12 @@
+node_modules/
+.nexus-zalo/
+*.log
+.DS_Store
+
+# Secrets & Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/

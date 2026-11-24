@@ -1,0 +1,248 @@
+/* ============================================================
+   payment.css — Payment Modal Styles
+   Single Responsibility: SePay payment modal UI.
+   ============================================================ */
+
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(32px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── Backdrop ────────────────────────────────────────────── */
+.payment-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.payment-modal-backdrop.show {
+  display: flex;
+}
+
+/* ── Modal Card ──────────────────────────────────────────── */
+.payment-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  animation: slideUp 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+  overflow: hidden;
+}
+
+/* ── Modal Header ────────────────────────────────────────── */
+.payment-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.payment-modal-header h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* ── Modal Body ──────────────────────────────────────────── */
+.payment-modal-body {
+  padding: 20px;
+}
+
+/* ── QR Code ─────────────────────────────────────────────── */
+.payment-qr-wrap {
+  display: inline-block;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: var(--radius-md);
+}
+
+.payment-qr-img {
+  display: block;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+/* ── Info Rows ───────────────────────────────────────────── */
+.payment-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+  font-size: 14px;
+}
+
+.payment-info-row:last-of-type {
+  border-bottom: none;
+}
+
+.payment-info-row .text-muted {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── Amount ──────────────────────────────────────────────── */
+.payment-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  letter-spacing: -0.5px;
+}
+
+/* ── Countdown ───────────────────────────────────────────── */
+.payment-countdown {
+  color: var(--status-warn);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+/* ── Status ──────────────────────────────────────────────── */
+.payment-status-pending {
+  color: var(--status-warn);
+  animation: pulse 1.6s ease-in-out infinite;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.payment-status-paid {
+  color: var(--status-success);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Tier Badge ──────────────────────────────────────────── */
+.payment-tier-badge {
+  display: inline-block;
+  background: rgba(92, 230, 212, 0.1);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(92, 230, 212, 0.25);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .payment-modal {
+    width: 95vw;
+    max-width: 95vw;
+  }
+
+  .payment-qr-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .payment-amount {
+    font-size: 1.4rem;
+  }
+}
+
+/* ── Copy Button (inline) ────────────────────────────────── */
+.btn-copy-inline {
+  padding: 2px 6px;
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  line-height: 1.4;
+  flex-shrink: 0;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.btn-copy-inline:hover {
+  background: var(--bg-hover, rgba(255, 255, 255, 0.05));
+  color: var(--text-main);
+}
+
+.btn-copy-inline.copied {
+  color: var(--status-success);
+  border-color: var(--status-success);
+}
+
+/* ── Copyable Info Row ───────────────────────────────────── */
+.payment-info-row-copyable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.payment-info-row-copyable .text-muted {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── QR Skeleton ─────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -440px 0; }
+  100% { background-position:  440px 0; }
+}
+
+.payment-qr-skeleton {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--bg-hover, rgba(255,255,255,0.04)) 25%,
+    rgba(255,255,255,0.10)                  50%,
+    var(--bg-hover, rgba(255,255,255,0.04)) 75%
+  );
+  background-size: 880px 220px;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* ── QR Error State ──────────────────────────────────────── */
+.payment-qr-error {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--status-danger);
+  font-size: 13px;
+  width: 220px;
+  padding: 16px 0;
+}
+
+/* ── Payment Footer ──────────────────────────────────────── */
+.payment-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+/* ── Expired Status ──────────────────────────────────────── */
+.payment-status-expired {
+  color: var(--status-danger);
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -1,0 +1,29 @@
+{
+  "name": "nexus-zalo",
+  "version": "2.2.0",
+  "private": false,
+  "description": "Cross-platform Zalo Android backup and restore manager powered by ADB Pull/Push and ZIP",
+  "main": "src/server.js",
+  "bin": {
+    "nexus-zalo": "bin/nexus-zalo.js"
+  },
+  "scripts": {
+    "start": "dotenvx run -fk \"$HOME/.config/nexus-zalo/.env.keys\" -- node bin/nexus-zalo.js dashboard",
+    "dev": "node --watch src/server.js",
+    "check": "node --check bin/nexus-zalo.js && node --check src/server.js && node --check src/routes/api.js && node --check src/services/adb.js && node --check src/services/store.js && node --check src/services/archive.js && node --check src/services/transfer.js && node --check public/app.js && node --check public/js/api.js && node --check public/js/ui.js && node --check public/js/router.js && node --check public/js/monitor.js && node --check public/js/views/overview.js && node --check public/js/views/devices.js && node --check public/js/views/backups.js && node --check public/js/views/restore.js && node --check public/js/views/explorer.js && node --check public/js/views/history.js && node --check public/js/views/settings.js && node --check public/js/app.js && node --check src/routes/payment.js && node --check src/services/payment.js && node --check src/services/zalo-size.js && echo 'All syntax checks passed!'",
+    "test": "node test/api-smoke.mjs",
+    "test:audit": "node --test test/audit-fixes.mjs",
+    "test:payment": "node test/payment-qr.mjs",
+    "link": "npm link"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "*",
+    "adm-zip": "^0.5.16",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0"
+  }
+}

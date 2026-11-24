@@ -1,0 +1,21 @@
+<!-- public/components/header.html -->
+<header class="app-header">
+  <button class="mobile-menu-toggle" id="btnMobileMenu" aria-label="Mở menu">☰</button>
+  <div class="brand-box-inline">
+    <div class="brand-logo">N<span>✦</span></div>
+    <div class="brand-text"><b>NEXUS</b><small>ZALO</small></div>
+  </div>
+  <div class="header-title-box">
+    <h2 id="headerPageTitle">Tổng quan hệ thống</h2>
+    <small id="headerPageSubtitle">Trạng thái truyền tải dữ liệu &amp; thiết bị</small>
+  </div>
+  <div class="header-actions">
+    <span class="pill pill-cyan" id="headerStoragePill">💾 BỘ NHỚ LOCAL</span>
+    <div class="theme-toggle-group">
+      <button class="btn btn-icon" id="btnThemeDefault" data-theme="default" title="Theme mặc định">◉</button>
+      <button class="btn btn-icon" id="btnThemeMidnight" data-theme="midnight" title="Theme Midnight">🌙</button>
+      <button class="btn btn-icon" id="btnThemeCyberpunk" data-theme="cyberpunk" title="Cyberpunk">⚡</button>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="Router.navigate('settings')">⚙</button>
+  </div>
+</header>
