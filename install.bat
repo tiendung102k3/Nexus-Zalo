@@ -66,25 +66,14 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: 5. Dang ky lenh nexus-zalo toan cuc
-echo.
-echo [*] Dang dang ky lenh toan cuc 'nexus-zalo' (npm link)...
-call npm link >nul 2>&1
-if %errorlevel% equ 0 (
-    echo [OK] Da dang ky lenh toan cuc thanh cong.
-) else (
-    echo [INFO] Ban van co the khoi chay bang lenh: npm start
-)
-
-:: 6. Hoan tat
+:: 5. Hoan tat
 echo.
 echo ==========================================================
 echo 🎉 CAI DAT NEXUS-ZALO THANH CONG!
 echo ==========================================================
 echo.
 echo Khoi dong ung dung bang mot trong cac cach sau:
-echo   1. Mo CMD moi va go: nexus-zalo
-echo   2. Hoac chay tai thu muc nay: npm start
+echo   1. lenh chay tai thu muc nay: npm start
 echo.
 echo Dashboard se mo tai: http://127.0.0.1:5178
 echo.
