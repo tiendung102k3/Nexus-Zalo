@@ -154,16 +154,10 @@ fi
 echo -e "${CYAN}📦 Đang cài đặt thư viện Node.js (npm install)...${NC}"
 npm install
 
-echo -e "\n${CYAN}🔗 Đăng ký lệnh toàn cục 'nexus-zalo' (npm link)...${NC}"
-npm link || {
-  echo -e "${YELLOW}⚠️  'npm link' cần quyền root/admin hoặc thiết lập prefix. Bạn vẫn có thể chạy qua: npm start${NC}"
-}
-
 # ── 6. HOÀN TẤT ──────────────────────────────────────────────
 echo -e "\n${GREEN}${BOLD}=========================================================="
 echo "🎉 CÀI ĐẶT NEXUS-ZALO THÀNH CÔNG!"
 echo "==========================================================${NC}"
 echo -e "Khởi động ứng dụng bằng một trong các cách sau:"
-echo -e "  1. Lệnh toàn cục:  ${CYAN}${BOLD}nexus-zalo${NC}"
-echo -e "  2. Hoặc chạy trực tiếp: ${CYAN}${BOLD}npm start${NC}"
+echo -e "  1. Lệnh chạy trực tiếp: ${CYAN}${BOLD}npm start${NC}"
 echo -e "\nDashboard sẽ mở tại: ${BOLD}http://127.0.0.1:5178${NC}\n"
