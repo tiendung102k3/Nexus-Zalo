@@ -111,14 +111,26 @@ Bạn có thể chọn **1 trong 2 cách** sau:
 > - Samsung: [Samsung Smart Switch](https://www.samsung.com/us/support/owners/app/smart-switch)
 > - Xiaomi / Oppo / Các dòng khác: [Google Universal ADB Driver](https://adb.clockworkmod.com/)
 
-#### Bước 3: Khởi chạy Nexus-Zalo
-1. Giải nén mã nguồn **Nexus-Zalo**.
-2. Nhấp đúp vào file **`install.bat`** để hoàn tất cấu hình.
-3. Mở CMD mới và gõ:
-   ```cmd
-   nexus-zalo
-   ```
-   Trình duyệt sẽ tự động mở trang quản trị tại: **`http://127.0.0.1:5178`**.
+#### Bước 3: Tải mã nguồn & Cài đặt Nexus-Zalo
+
+Mở CMD hoặc PowerShell và chạy:
+
+\```bash
+git clone https://github.com/tiendung102k3/Nexus-Zalo.git
+cd Nexus-Zalo
+\```
+
+Sau đó nhấp đúp vào file **`install.bat`** để hoàn tất cài đặt.
+
+#### Bước 4: Khởi động Nexus-Zalo
+
+Mở CMD hoặc PowerShell tại thư mục **Nexus-Zalo** và chạy:
+
+\```bash
+npm start
+\```
+
+Trình duyệt truy cập trang quản trị tại: **`http://127.0.0.1:5178`**.
 
 ---
 
@@ -129,21 +141,30 @@ Chạy ứng dụng trực tiếp ngay trên điện thoại mà không cần m�
 #### Bước 1: Cài đặt Termux
 - Tải ứng dụng **Termux** từ [F-Droid](https://f-droid.org/en/packages/com.termux/) (Khuyến nghị, không tải trên Google Play vì phiên bản đã cũ).
 
-#### Bước 2: Cài đặt tự động bằng 1 dòng lệnh
-Mở ứng dụng Termux và di chuyển vào thư mục phần mềm:
-```bash
+#### Bước 2: Tải mã nguồn & Cài đặt
+
+Mở Termux và chạy lần lượt:
+
+\```bash
+pkg update -y && pkg upgrade -y
+pkg install -y git
+git clone https://github.com/tiendung102k3/Nexus-Zalo.git
+cd Nexus-Zalo
 chmod +x install.sh
 ./install.sh
-```
-> [!NOTE]
-> Trình cài đặt `install.sh` trên Termux được lập trình **tự động 100%**: Sẽ tự động tải và cài đặt đầy đủ tất cả các gói: `nodejs-lts`, `android-tools` (ADB), `zip`, `unzip`, `tar`, `git`, `curl` mà bạn không cần gõ lệnh riêng lẻ.
+\```
 
-#### Bước 3: Khởi động
-```bash
-nexus-zalo
-# Hoặc: npm start
-```
-Mở trình duyệt trên điện thoại truy cập: **`http://127.0.0.1:5178`**.
+#### Bước 3: Khởi động ứng dụng
+
+Sau khi cài đặt hoàn tất, chạy lệnh:
+
+\```bash
+npm start
+\```
+
+Mở trình duyệt trên điện thoại và truy cập:
+
+**`http://127.0.0.1:5178`**
 
 ---
 
@@ -160,14 +181,24 @@ brew install node
 brew install --cask android-platform-tools
 ```
 
-#### Bước 2: Cài đặt & Khởi động Nexus-Zalo
-```bash
+#### Bước 2: Tải mã nguồn & Cài đặt Nexus-Zalo
+
+\```bash
+git clone https://github.com/tiendung102k3/Nexus-Zalo.git
 cd Nexus-Zalo
 chmod +x install.sh
 ./install.sh
-nexus-zalo
-```
+\```
 
+#### Bước 3: Khởi động Nexus-Zalo
+
+\```bash
+npm start
+\```
+
+Sau khi khởi động, mở trình duyệt và truy cập:
+
+**`http://127.0.0.1:5178`**
 ---
 
 ### 🐧 4. Dành cho Linux (Ubuntu, Debian, Fedora, Arch)
@@ -188,13 +219,24 @@ Mở Terminal và cài đặt nhanh các gói cần thiết:
   sudo pacman -S nodejs npm android-tools zip unzip tar
   ```
 
-Khởi chạy ứng dụng:
-```bash
+Tải mã nguồn và cài đặt Nexus-Zalo:
+
+\```bash
+git clone https://github.com/tiendung102k3/Nexus-Zalo.git
 cd Nexus-Zalo
 chmod +x install.sh
 ./install.sh
-nexus-zalo
-```
+\```
+
+Khởi chạy ứng dụng:
+
+\```bash
+npm start
+\```
+
+Sau khi khởi chạy, truy cập:
+
+**`http://127.0.0.1:5178`**
 
 ---
 
